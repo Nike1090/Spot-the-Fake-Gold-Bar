@@ -10,12 +10,14 @@ import sys
 # Main function
 def main():
     try:
+        # Initialize the driver
         driver = initialize_driver()
         elements, wait = find_elements(driver)
         fake_gold_bar = find_fake_gold_bar(driver, elements, wait)
         
         # Click the button for the fake bar
         driver.find_element(By.ID, f"coin_{fake_gold_bar}").click()
+        # Handling Alert
         alert = Alert(driver)
         alert_message = alert.text
         alert.accept()
@@ -30,9 +32,9 @@ def main():
     except Exception as e:
         print(f"An error occurred: {e}", file=sys.stderr)
 
-    # finally:
+    finally:
         # Close the driver
-        # driver.quit()
+        driver.quit()
 
 # Initialize the webDriver
 def initialize_driver():
